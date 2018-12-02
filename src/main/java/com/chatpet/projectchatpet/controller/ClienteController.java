@@ -23,6 +23,12 @@ public class ClienteController {
         return clienteRepository.findAll();
     }
 
+    @GetMapping("/clientes/{id}")
+    public  Cliente getClienteById(@PathVariable("id") Long clienteId){
+        return clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("ClienteId " + clienteId + " not found."));
+    }
+
     @PostMapping("/clientes")
     public Cliente createCliente(@Valid @RequestBody Cliente cliente) {
         return clienteRepository.save(cliente);
